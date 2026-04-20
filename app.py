@@ -74,5 +74,55 @@ st.plotly_chart(fig)
 
 cat = (
     filtered.groupby("product_type")["revenue"]
-    .sum
+    .sum()
+    .reset_index()
 )
+
+fig2 = px.pie(
+    cat,
+    names="product_type",
+    values="revenue",
+    title="Revenue Distribution by Product Type"
+)
+
+st.plotly_chart(fig2)
+
+# =======================
+# SCATTER PLOT
+# =======================
+
+scatter = (
+    filtered.groupby("product_detail")
+    .agg({
+        "transaction_qty": "sum",
+        "revenue": "sum"
+    })
+    .reset_index()
+)
+
+fig3 = px.scatter(
+    scatter,
+    x="transaction_qty",
+    y="revenue",
+    size="revenue",
+    hover_name="product_detail",
+    title="Popularity vs Revenue"
+)
+
+st.plotly_chart(fig3)
+
+# =======================
+# DATA TABLE
+# =======================
+
+st.dataframe(
+    scatter.sort_values(by="revenue", ascending=False)
+)
+
+# =======================
+# DEBUG (OPTIONAL)
+# =======================
+
+st.write(f"Selected Category: {category}")
+st.write(f"Selected Store: {store}")
+st.write(f"Filtered Rows: {filtered.shape[0]}")
