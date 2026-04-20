@@ -5,7 +5,7 @@ import plotly.express as px
 st.title("☕ Afficionado Coffee Product Analytics")
 
 # Load Data
-df = pd.read_csv("data/coffee.csv")
+df = pd.read_csv("data/Coffee.csv")
 
 # Data Cleaning
 df = df.dropna()
