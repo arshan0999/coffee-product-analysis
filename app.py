@@ -75,3 +75,4 @@ st.plotly_chart(fig)
 cat = (
     filtered.groupby("product_type")["revenue"]
     .sum
+)
